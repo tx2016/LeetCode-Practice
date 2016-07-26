@@ -9,11 +9,10 @@ public int[] twoSum(int[] nums, int target) {
     int[] sorted = Arrays.copyOf(nums, nums.length);
     Arrays.sort(sorted);
 	
-	int begin = 0;
-	int end = nums.length - 1;
-	
-	int t1 = 0;
-	int t2 = 0;
+    int begin = 0; 
+    int end = nums.length - 1;
+    int t1 = 0;
+    int t2 = 0;
 	
 	while(begin < end) {
 		int sum = sorted[begin] + sorted[end];

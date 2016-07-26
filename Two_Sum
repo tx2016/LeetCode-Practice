@@ -1,0 +1,51 @@
+7/25/2016
+1. Two Sum
+
+public int[] twoSum(int[] nums, int target) {
+    //copy the original array and sort it
+	int[] sorted = Arrays.copyOf(nums, nums.length);
+	Arrays.sort(sorted);
+
+	int begin = 0;
+	int end = nums.length - 1;
+
+	int t1 = 0;
+	int t2 = 0;
+
+	while(begin < end) {
+		int sum = sorted[begin] + sorted[end];
+		if (sum < target)
+			begin++;
+		else if (sum > target)
+			end--;
+		else
+			t1 = sorted[begin];
+			t2 = sorted[end];
+			break;
+	}
+
+
+	//now found these two numbers
+	//need to traverse the original array
+	//to find their indices
+
+	int[] result = new int[2];
+
+	//from beginning of the array to end to obtain index for t1
+	for (int i = 0; i < nums.length; i++) {
+		if (nums[i] == t1) {
+			result[0] = i;
+			break;
+		}
+	}
+
+	//from end of the array to begin to obtain index for t2
+	//because t1 might be equal to t2
+	for (int i = nums.length -1; i > -1; i--) {
+		if (nums[i] == t2) {
+			result[1] = i;
+			break;
+		}
+	}
+	return result;
+}

@@ -14,20 +14,20 @@ public int[] twoSum(int[] nums, int target) {
     int t1 = 0;
     int t2 = 0;
 	
-	while(begin < end) {
-		int sum = sorted[begin] + sorted[end];
-		if (sum < target)
-			begin++;
-		else if (sum > target)
-			end--;
-		else {
-			t1 = sorted[begin];
-			t2 = sorted[end];
-			break;
-		}
+    while(begin < end) {
+	int sum = sorted[begin] + sorted[end];
+	if (sum < target)
+		begin++;
+	else if (sum > target)
+		end--;
+	else {
+		t1 = sorted[begin];
+		t2 = sorted[end];
+		break;
 	}
+    }
 	
-	//now found these two numbers
+    //now found these two numbers
 	//need to traverse the original array
 	//to find their indices
 	

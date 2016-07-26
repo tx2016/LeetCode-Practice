@@ -7,7 +7,7 @@ public int[] twoSum(int[] nums, int target) {
     	
     //copy the original array and sort it
     int[] sorted = Arrays.copyOf(nums, nums.length);
-	Arrays.sort(sorted);
+    Arrays.sort(sorted);
 	
 	int begin = 0;
 	int end = nums.length - 1;
@@ -27,7 +27,6 @@ public int[] twoSum(int[] nums, int target) {
 			break;
 		}
 	}
-	
 	
 	//now found these two numbers
 	//need to traverse the original array

@@ -15,3 +15,20 @@ public String reverseString(String s) {
     }
     return new String (ch_copy);
 }
+
+
+
+#method 2:
+public class Solution {
+    public String reverseString(String s) {
+        char[] ch = s.toCharArray();
+
+        for (int i = 0; i < ch.length / 2; i++) {
+            int other = ch.length - 1 - i;
+            char tmp = ch[i];
+            ch[i] = ch[other];
+            ch[other] = tmp;
+        }
+        return new String (ch);
+    }
+}

@@ -2,16 +2,16 @@
 public String reverseString(String s) {
     String temp = s;
     char[] ch = s.toCharArray();
-    char[] ch_copy = s.toCharArray();
 
     int begin = 0;
     int end = ch.length - 1;
     
     while (begin <= end) {
+        char temp = ch[begin];
         ch_copy[begin] = ch_copy[end];
-        ch_copy[end] = ch[begin];
+        ch_copy[end] = temp;
         begin++;
         end--;
     }
-    return String.valueOf(ch_copy);
+    return new String (ch_copy);
 }

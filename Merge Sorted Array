@@ -1,0 +1,15 @@
+#8/4/2016
+
+public void merge(int[] nums1, int m, int[] nums2, int n) {
+    int result = m + n -1;
+    int len1 = m - 1;
+    int len2 = n - 1;
+    
+    //if nums 1 is equal or longer than nums2
+    while (len1 >= 0 && len2 >= 0) {
+        nums1[result--] = nums1[len1] > nums2[len2] ? nums1[len1--] : nums2[len2--];
+    }
+    //if num1 is shorter than nums2, the result of nums2 will be the head of result
+    while (len2 >= 0) 
+        nums1[result--] = nums2[len2--];
+}

@@ -1,0 +1,23 @@
+    #8/7/2016
+    
+    public boolean isHappy(int n) {
+        Set <Integer> set = new HashSet<Integer>();
+        while (!set.contains(n)) {
+            set.add(n);
+            n = squareSum(n);
+            if (n == 1)
+                return true;
+        }
+        return false;
+    }
+    
+    private int squareSum(int n) {
+        int result = 0;
+        while (n != 0) {
+            int remainder = n % 10;
+            result+= remainder * remainder;
+            n /= 10;
+        }
+        return result;
+    }
+    

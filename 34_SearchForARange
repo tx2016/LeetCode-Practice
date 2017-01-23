@@ -11,5 +11,47 @@ Given [5, 7, 7, 8, 8, 10] and target value 8,
 return [3, 4].
 
 public int[] searchRange(int[] nums, int target) {
+	if (nums == null || nums.length == 0)
+		return new int[] {-1, -1};
+
+	int[] answer = new int[2];
+	int begin = 0;
+	int end = nums.length - 1;
+
+	// find the first position
+	while (begin + 1 < end) {
+		int mid = begin + (end - begin)/2;
+		if (nums[mid] < target)
+			begin = mid;
+		else if (nums[mid] > target)
+			end = mid;
+		else
+			end = mid;
+	} // save the first index into the array
+	if (nums[begin] == target) 
+		answer[0] = begin;
+	else if (nums[end] == target) 
+		answer[0] = end;
+	else
+		answer[0] = -1;
 	
+	// reset the end index
+	end = nums.length - 1;
+	// find the last position
+	while (begin + 1 < end) {
+		int mid = begin + (end - begin)/2;
+		if (nums[mid] < target)
+			begin = mid;
+		else if (nums[mid] > target)
+			end = mid;
+		else
+			begin = mid;
+	} // save the last index into the array
+	if (nums[end] == target) 
+		answer[1] = end;
+	else if (nums[begin] == target) 
+		answer[1] = begin;
+	else
+		answer[1] = -1;
+	return answer;
 }

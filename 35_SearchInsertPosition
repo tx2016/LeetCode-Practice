@@ -19,20 +19,20 @@ public int searchInsert(int[] nums, int target) {
 	int end = nums.length - 1;
 	while (begin + 1 < end) {
 		int mid = begin + (end - begin)/2;
-		if (nums[mid] < target) {
+		if (nums[mid] < target) 
 			begin = mid;
-		} else if (nums[mid] > target) {
+		else if (nums[mid] > target) 
 			end = mid;
-		} else {
-			begin = mid;
-		}
+		else 
+			end = mid; // move the end index, find first position
 	}
 
+	// check from begin first
 	if (nums[begin] >= target) 
 		answer = begin;
 	else if (nums[end] >= target) 
 		answer = end;
-	else if (nums[end < target])
+	else // (nums[end < target])
 		answer = end + 1;
 	return answer;
 }

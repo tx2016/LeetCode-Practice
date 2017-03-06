@@ -19,10 +19,9 @@ return
 ]
 
 
-
 private List<List<Integer>> result = new ArrayList<List<Integer>>();
+
 public List<List<Integer>> pathSum(TreeNode root, int sum) {
-    
     List<Integer> list = new ArrayList<>();
     helper(root, sum, 0, list);
     return result;

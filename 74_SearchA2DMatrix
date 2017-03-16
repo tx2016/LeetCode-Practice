@@ -41,3 +41,33 @@ public boolean searchMatrix (int[][] matrix, int target) {
 	else
 		return false;
 }
+
+
+// 3/15/2017
+
+public boolean searchMatrix(int[][] matrix, int target) {
+    if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
+		return false;
+
+	int numRow = matrix.length;
+	int numCol = matrix[0].length;
+	
+	int row = numRow - 1;
+	int col = 0;
+	
+	// start from the left bottom corner
+	while (row >= 0 && col < numCol) {
+	    if (matrix[row][col] > target) {
+	        row--;
+	    } else if (matrix[row][col] < target) {
+	        col++;
+	    } else {
+	        return true;
+	    }
+	}
+	return false;
+}
+
+
+
+

@@ -14,6 +14,7 @@ to
  / \   / \
 9   6 3   1
 
+// recursive
 public TreeNode invertTree(TreeNode root) {
     if (root == null) {
         return null;
@@ -22,4 +23,26 @@ public TreeNode invertTree(TreeNode root) {
     root.left = invertTree(root.right);
     root.right = invertTree(temp);
     return root;
+}
+
+// iterative, BFS
+public TreeNode invertTree (TreeNode root) {
+	if (root == null) {
+		return null;
+	}
+	LinkedList <TreeNode> q = new LinkedList<TreeNode>();
+	q.offer(root);
+	while (!q.isEmpty()) {
+		TreeNode cur = q.poll();
+		TreeNode temp = cur.left;
+		cur.left = cur.right;
+		cur.right = temp;
+		if (cur.left != null) {
+			q.offer(cur.left);
+		}
+		if (cur.right != null) {
+			q.offer(cur.right);
+		}
+	}
+	return root;
 }

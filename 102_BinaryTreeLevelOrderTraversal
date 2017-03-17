@@ -1,0 +1,42 @@
+// 3/17/2017
+
+Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
+
+For example:
+Given binary tree [3,9,20,null,null,15,7],
+    3
+   / \
+  9  20
+    /  \
+   15   7
+return its level order traversal as:
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+
+public List<List<Integer>> levelOrder(TreeNode root) {
+    List<List<Integer>> res = new ArrayList<List<Integer>>();
+    if (root == null) {
+        return res;
+    }
+    helper(root, res, 0);
+    return res;
+}
+
+private void helper(TreeNode root, List<List<Integer>> res, int depth) {
+    if (root == null) {
+        return;
+    }
+    // if depth equals to the current res size, add one new Array inside the res
+    if (depth == res.size()) {
+        res.add(new ArrayList<Integer>());
+    }
+    // get current Array inside the res, and add the val of node to the Array  [[],  index = 0
+    																		// [],   index = 1
+    																		// []]   index = 2
+    res.get(depth).add(root.val);
+    helper(root.left, res, depth + 1);
+    helper(root.right, res, depth + 1);
+}

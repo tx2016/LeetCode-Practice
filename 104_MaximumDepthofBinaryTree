@@ -9,13 +9,12 @@ public int maxDepth (TreeNode root) {
 	if (root == null)
 		return 0;
 
-
 	// Divide
 	int left = maxDepth(root.left);
 	int right = maxDepth(root.right);
 
 	// Conquer
-	int current = maxDepth(root.val);
+	int current = Math.max(left, right) + 1;
 
 	return current;
 }

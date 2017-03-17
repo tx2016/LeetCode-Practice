@@ -1,0 +1,54 @@
+// 3/16/2017
+
+Given a binary tree, return the postorder traversal of its nodes' values.
+
+For example:
+Given binary tree {1,#,2,3},
+   1
+    \
+     2
+    /
+   3
+return [3,2,1].
+
+Note: Recursive solution is trivial, could you do it iteratively?
+
+// recursive
+public List<Integer> postorderTraversal(TreeNode root) {
+    List<Integer> list = new ArrayList<Integer>();
+	if (root == null) {
+        return list;
+    }
+    helper(root, list);
+    return list;
+}
+
+private void helper(TreeNode root, List<Integer> list) {
+    if (root == null) {
+        return;
+    }
+    helper(root.left, list);
+    helper(root.right, list);
+    list.add(root.val);
+}
+
+// iterative
+public List<Integer> postorderTraversal(TreeNode root) {
+	LinkedList<Integer> list = new LinkedList<Integer>();
+    if (root == null) {
+		return list;
+	}
+    Stack <TreeNode> s = new Stack<TreeNode>();
+    s.push(root);
+    while (!s.isEmpty()) {
+    	TreeNode cur = s.pop();
+    	list.add(cur.val);
+    	if (cur.left != null) {
+    		s.push(cur.left);
+    	}
+    	if (cur.right != null) {
+    		s.push(cur.right);
+    	}
+    }
+    return list;
+}

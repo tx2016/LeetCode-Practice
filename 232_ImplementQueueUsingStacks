@@ -1,0 +1,46 @@
+// 4/4/2017
+
+public class MyQueue {
+    Stack<Integer> normal_s;
+    Stack<Integer> temp_s;
+    int front;
+    /** Initialize your data structure here. */
+    public MyQueue() {
+        normal_s = new Stack<>();
+        temp_s = new Stack<>();
+        front = Integer.MIN_VALUE;
+    }
+    
+    /** Push element x to the back of queue. */
+    public void push(int x) {
+        if (normal_s.isEmpty()) {
+            front = x;
+        }
+        while (!normal_s.isEmpty()) {
+            temp_s.push(normal_s.pop());
+        }
+        temp_s.push(x);
+        while (!temp_s.isEmpty()) {
+            normal_s.push(temp_s.pop());
+        }
+    }
+    
+    /** Removes the element from in front of queue and returns that element. */
+    public int pop() {
+        int top = normal_s.pop();
+        if (!normal_s.isEmpty()) {
+            front = normal_s.peek();
+        }
+        return top;
+    }
+    
+    /** Get the front element. */
+    public int peek() {
+        return front;
+    }
+    
+    /** Returns whether the queue is empty. */
+    public boolean empty() {
+        return normal_s.isEmpty();
+    }
+}

@@ -1,0 +1,50 @@
+// 4/8/2017
+
+Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+
+You may assume that the array is non-empty and the majority element always exist in the array.
+
+public int majorityElement(int[] nums) {
+    if (nums.length == 1) {
+        return nums[0];
+    }
+
+    int answer = Integer.MAX_VALUE;
+    int max_counter = 0;
+    int counter = 0;
+    Arrays.sort(nums);
+    
+    for (int i = 0; i < nums.length-1; i++) {
+        if (nums[i] == nums[i+1]) {
+            counter++;
+            if (counter > max_counter) {
+                max_counter = counter;
+                answer = nums[i];
+                if (max_counter >= nums.length/2) {
+                    break;
+                }
+            }
+        } else {
+        // reset counter when next element != current element
+            counter = 0;
+        }
+    }
+    return answer;
+}
+
+// Moore voting algorithm
+public int majorityElement(int[] nums) {
+    int vote = 0;
+    int element = 0;
+    for (int num : nums) {
+        if (vote == 0) {
+            element = num;
+        } 
+        if (element == num) {
+            vote++;
+        } else {
+            vote--;
+        }
+    }
+    return element;
+    }

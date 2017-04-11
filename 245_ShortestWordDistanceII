@@ -1,0 +1,48 @@
+// 4/9/2017
+
+This is a follow up of Shortest Word Distance. The only difference is now word1 could be the same as word2.
+
+Given a list of words and two words word1 and word2, return the shortest distance between these two words in the list.
+
+word1 and word2 may be the same and they represent two individual words in the list.
+
+For example,
+Assume that words = ["practice", "makes", "perfect", "coding", "makes"].
+
+Given word1 = “makes”, word2 = “coding”, return 1.
+Given word1 = "makes", word2 = "makes", return 3.
+
+Note:
+You may assume word1 and word2 are both in the list.
+
+public int shortestWordDistance(String[] words, String word1, String word2) {
+    int first_idx = -1;
+    int second_idx = -1;
+    int answer = Integer.MAX_VALUE;
+    
+    for (int i = 0; i < words.length; i++) {
+        if (!word1.equals(word2)) {
+            if (words[i].equals(word1)) {
+                first_idx = i;
+            }
+            if (words[i].equals(word2)) {
+                second_idx = i;
+            }
+            if (first_idx != -1 && second_idx != -1) {
+                answer = Math.min(answer, Math.abs(first_idx - second_idx));
+            }
+        } else { // word1 == word2
+                // find the index of same number
+                // "a" might appear in index 0,3,4,5
+            if (first_idx == -1 && words[i].equals(word1)) { //when first encounter the number
+                first_idx = i;
+                continue;
+            }
+            if (words[i].equals(word1)) {
+                answer = Math.min(answer, Math.abs(i - first_idx));
+                first_idx = i;
+            }
+        }
+    }
+    return answer;
+}

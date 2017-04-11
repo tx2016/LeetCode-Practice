@@ -32,7 +32,35 @@ public int searchInsert(int[] nums, int target) {
 		answer = begin;
 	else if (nums[end] >= target) 
 		answer = end;
-	else // (nums[end < target])
+	else // (nums[end] < target)
 		answer = end + 1;
 	return answer;
+}
+
+
+// 4/9/2017
+public int searchInsert(int[] nums, int target) {
+    if (nums.length == 0) {
+        return 0;
+    }
+    int left = 0;
+    int right = nums.length - 1;
+    while (left + 1 < right) {
+        int mid = left + (right-left)/2;
+        int num = nums[mid];
+        if (num > target) {
+            right = mid;
+        } else if (num < target) {
+            left = mid;
+        } else {
+            right = mid;
+        }
+    }
+    if (nums[left] >= target) {
+        return left;
+    } else if (nums[right] < target) { 
+        return (right + 1);
+    } else { // nums[right] >= target
+        return (left + 1);
+    }
 }

@@ -1,0 +1,31 @@
+// 4/10/2017
+
+Follow up for "Remove Duplicates":
+What if duplicates are allowed at most twice?
+
+For example,
+Given sorted array nums = [1,1,1,2,2,3],
+
+Your function should return length = 5, with the first five elements of nums being 1, 1, 2, 2 and 3. It doesn't matter what you leave beyond the new length.
+
+
+public int removeDuplicates(int[] nums) {
+    if (nums.length == 0) {
+        return 0;
+    }
+    int count = 0;
+    int stop = 0;
+    for (int i = 0; i < nums.length; i++) {
+        if (i == 0 || nums[i-1] == nums[i]) {
+            count++;
+        } else { // reset counter
+            count = 1;
+        }
+        if (count < 3) { // stop pointer points to the same element as i
+            nums[stop] = nums[i];
+            stop++;      // 3rd same element met, stop pointer do not move
+        } 
+         
+    }
+    return stop;
+}

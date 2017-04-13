@@ -1,0 +1,59 @@
+// 4/11/2017
+
+You are given an n x n 2D matrix representing an image.
+
+Rotate the image by 90 degrees (clockwise).
+
+Follow up:
+Could you do this in-place?
+
+// O(n^2) space
+public void rotate(int[][] matrix) {
+    int row = matrix.length;
+    if (row <= 1) {
+        return;
+    }
+    int col = matrix[0].length;
+    int[][] output = new int[row][col];
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < col; j++) {
+            output[j][col-i-1] = matrix[i][j];
+        }
+    }
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < col; j++) {
+            matrix[i][j] = output[i][j];
+        }
+    }
+}
+
+// in place
+// swap element symmetric to diagonal line
+// then swap the element in each row
+public void rotate(int[][] matrix) {
+    int row = matrix.length;
+    if (row <= 1) {
+        return;
+    }
+    int col = matrix[0].length;
+    for (int i = 0; i < row; i++) {
+        for (int j = i; j < col; j++) {
+        	// j = i, because in next row iteration, we will start from the column == number of row; otherwise, element would be swapped back to original place
+            int temp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = temp;
+        }
+    }
+
+    for (int i = 0; i < row; i++) {
+        int left = 0;
+        int right = row - 1;
+        while (left < right) {
+            int temp = matrix[i][left];
+            matrix[i][left] = matrix[i][right];
+            matrix[i][right] = temp;
+            left++;
+            right--;
+        }
+    }
+}

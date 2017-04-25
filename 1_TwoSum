@@ -20,7 +20,6 @@ public int[] TwoSum(int[] nums, int target) {
 	int[] sorted = Arrays.copyOf(nums, nums.length);
 	Arrays.sort(sorted);
 
-
 	int [] targetNum = new int[2];
 	int begin = 0;
 	int end = nums.length - 1;
@@ -67,6 +66,3 @@ public int[] TwoSum(int[] nums, int target) {
 	}
 	return answer;
 }
-
-
-

@@ -1,0 +1,45 @@
+// 4/27/2017
+
+Given a string and an integer k, you need to reverse the first k characters for every 2k characters counting from the start of the string. If there are less than k characters left, reverse all of them. If there are less than 2k but greater than or equal to k characters, then reverse the first k characters and left the other as original.
+Example:
+Input: s = "abcdefg", k = 2
+Output: "bacdfeg"
+Restrictions:
+The string consists of lower English letters only.
+Length of the given string and k will in the range [1, 10000]
+
+
+public String reverseStr(String s, int k) {
+    if (s.length() == 0) {
+        return "";
+    }
+    int endPos = 2*k - 1;
+    int startPos = endPos - (2*k - 1);
+    char[] ch = s.toCharArray();
+    // if the first 2k length could fit into the length
+    // then reverse the first k
+    while(endPos <= s.length() - 1) {
+        helper(startPos, startPos + (k-1), ch);
+        startPos += 2*k;
+        endPos += 2*k;
+    }
+    // could not fit 2k length anymore
+    // endPos greater than the length
+    // need to find the position right next to the previous endPos
+    // so minus the 2k then plus 1 to locate the right index
+    endPos = endPos - 2*k + 1;
+    
+    // if remaining is less than k, reverse all (less than the s.length() -> endPos : s.length() - 1)
+    // if remaining is greater or equal to k, reverse the first k (start: end -> endPos : endPos + (k - 1))
+    helper(endPos, Math.min(s.length() - 1, endPos + (k - 1)), ch);
+    return String.valueOf(ch);
+}
+private void helper(int left, int right, char[] ch) {
+    while (left < right) {
+        char temp = ch[left];
+        ch[left] = ch[right];
+        ch[right] = temp;
+        left++;
+        right--;
+    }
+}

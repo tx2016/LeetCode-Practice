@@ -1,0 +1,70 @@
+// 4/27/2017
+
+Given a string, find the length of the longest substring without repeating characters.
+
+Examples:
+
+Given "abcabcbb", the answer is "abc", which the length is 3.
+
+Given "bbbbb", the answer is "b", with the length of 1.
+
+Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+
+// first attempt
+public int lengthOfLongestSubstring(String s) {
+    if (s.length() == 0) {
+        return 0;
+    }
+    StringBuilder builder = new StringBuilder();
+    char[] ch = s.toCharArray();
+    int result = 0;
+    for (int i = 0; i < ch.length; i++) {
+        // contains this character 
+        if (builder.toString().contains(String.valueOf(ch[i]))) {
+            // they are next to each other
+            // ex: pwwkew
+            if (builder.toString().indexOf(String.valueOf(ch[i])) == i - 1) {
+                // clear the string builder
+                builder.delete(0, builder.length());
+                builder.append(ch[i]);
+                result = Math.max(result, builder.length());
+            // not next to each other
+            // ex: dvdf
+            } else {
+                int firstIdx = builder.toString().indexOf(String.valueOf(ch[i]));
+                // delete everything before the first occurance
+                builder.delete(0, firstIdx+1);
+                builder.append(ch[i]);
+                result = Math.max(result, builder.length());
+            }    
+        } else {
+            builder.append(ch[i]);
+            result = Math.max(result, builder.length());
+        }
+    }
+    return result;
+}
+
+
+// could merge the two cases into one
+// if contains dupulicats, delete up to the first occurance
+public int lengthOfLongestSubstring(String s) {
+    if (s.length() == 0) {
+        return 0;
+    }
+    StringBuilder builder = new StringBuilder();
+    char[] ch = s.toCharArray();
+    int result = 0;
+    for (int i = 0; i < ch.length; i++) {
+        // contains this character 
+        if (builder.toString().contains(String.valueOf(ch[i]))) {
+            int firstIdx = builder.toString().indexOf(String.valueOf(ch[i]));
+            // delete everything before the first occurance
+            builder.delete(0, firstIdx + 1);
+        } 
+        builder.append(ch[i]);
+        result = Math.max(result, builder.length());
+    }
+    return result;
+}
+

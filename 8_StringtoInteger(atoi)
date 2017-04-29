@@ -1,0 +1,47 @@
+// 4/29/2017
+
+Implement atoi to convert a string to an integer.
+
+Hint: Carefully consider all possible input cases. If you want a challenge, please do not see below and ask yourself what are the possible input cases.
+
+Notes: It is intended for this problem to be specified vaguely (ie, no given input specs). You are responsible to gather all the input requirements up front.
+
+public int myAtoi(String str) {
+    if (str.length() == 0 || str.isEmpty()) {
+        return 0;
+    }
+    
+    int index = 0;
+    int len = str.length();
+    int sign = 1;
+    int total = 0;
+    
+    while (str.charAt(index) == ' ') {
+        index++;
+    }
+    
+    if (str.charAt(index) == '-' || str.charAt(index) == '+') {
+        if (str.charAt(index) == '-') {
+            sign = -1;
+        } 
+        index++;
+    } 
+    
+    while (index < len) {
+        int digit = str.charAt(index) - '0';
+        if (digit < 0 || digit > 9) {
+            break;
+        }
+        //check if total will be overflow after 10 times and add digit
+        if(Integer.MAX_VALUE / 10 < total || Integer.MAX_VALUE / 10 == total && Integer.MAX_VALUE % 10 < digit) {
+            if (sign == 1) {
+                return Integer.MAX_VALUE;
+            } else {
+                return Integer.MIN_VALUE;
+            }
+        }
+        total = 10 * total + digit;
+        index++;
+    } 
+    return sign * total;
+}

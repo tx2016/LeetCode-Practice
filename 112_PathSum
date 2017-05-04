@@ -51,3 +51,21 @@ private boolean helper (TreeNode root, int add, int sum) {
     }
     return false;
 }
+
+
+// 5/2/2017
+
+public boolean hasPathSum(TreeNode root, int sum) {
+    if (root == null) {
+        return false;
+    }
+    if (root.left == null && root.right == null) {
+        sum -= root.val;
+        if (sum == 0) {
+            return true;
+        }
+    }
+    return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+}
+
+

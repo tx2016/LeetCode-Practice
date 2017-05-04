@@ -21,3 +21,23 @@ private int helper(TreeNode root) {
     int depth = Math.max(left, right) + 1;
     return depth;
 }
+
+// 5/2/2017
+
+public boolean isBalanced(TreeNode root) {
+    if (root == null) {
+        return true;
+    }
+    int left = helper(root.left);
+    int right = helper(root.right);
+    int diff = Math.abs(left - right);
+    // need to check if the left and right are both balanced
+    return (diff <= 1) && isBalanced(root.left) && isBalanced(root.right);
+}
+// return the max depth of subtree
+private int helper(TreeNode root) {
+    if (root == null) {
+        return 0;
+    }
+    return Math.max(helper(root.left), helper(root.right)) + 1;
+}

@@ -1,0 +1,97 @@
+// 5/5/2017
+
+Write a function that takes a string as input and reverse only the vowels of a string.
+
+Example 1:
+Given s = "hello", return "holle".
+
+Example 2:
+Given s = "leetcode", return "leotcede".
+
+Note:
+The vowels does not include the letter "y".
+
+// first attempt
+public String reverseVowels(String s) {
+    if (s.length() == 0) {
+        return "";
+    }
+    if (s.length() == 1) {
+        return s;
+    }
+    
+    List<Integer> record = new ArrayList<>();
+    
+    char[] ch = s.toCharArray();
+    for (int i = 0; i < s.length(); i++) {
+        char c = ch[i];
+        c = Character.toLowerCase(c);
+        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+            record.add(i);
+        }
+    }
+    int left = 0;
+    int right = record.size() - 1;
+    while (left < right) {
+        helper(ch, record.get(left), record.get(right));
+        left++;
+        right--;
+    }
+    return String.valueOf(ch);
+    
+}
+    
+private void helper(char[] ch, int left, int right) {
+    char temp = ch[left];
+    ch[left] = ch[right];
+    ch[right] = temp;
+
+}
+
+// second attempt
+
+public String reverseVowels(String s) {
+    if (s.length() == 0) {
+        return "";
+    }
+    if (s.length() == 1) {
+        return s;
+    }
+    
+    char[] ch = s.toCharArray();
+    String vowels = "aeiouAEIOU";
+    
+    
+    int left = 0;
+    int right = s.length() - 1;
+    while (left < right) {
+
+        // left char is not vowel
+        while (left < right && vowels.indexOf(ch[left]) == -1) {
+            left++;
+        }
+        
+        // right char is not vowel
+        while (left < right && vowels.indexOf(ch[right]) == -1) {
+            right--;
+        }
+        
+        // left is vowel and right is vowel
+        if (left < right) {
+            helper(ch, left, right);
+            left++;
+            right--;
+        }
+    }
+    return String.valueOf(ch);
+}
+    
+private void helper(char[] ch, int left, int right) {
+    char temp = ch[left];
+    ch[left] = ch[right];
+    ch[right] = temp;
+}
+
+
+
+

@@ -1,0 +1,31 @@
+// 5/11/2017
+
+Count the number of segments in a string, where a segment is defined to be a contiguous sequence of non-space characters.
+
+Please note that the string does not contain any non-printable characters.
+
+Example:
+
+Input: "Hello, my name is John"
+Output: 5
+
+public int countSegments(String s) {
+    if (s.length() == 0) {
+        return 0;
+    }
+    char[] ch = s.toCharArray();
+    // set to true to take care of
+    // initial condition
+    boolean space_found = true;
+    int seg = 0;
+    for (int i = 0; i < ch.length; i++) {
+        if (ch[i] != ' ' && space_found) {
+            seg++;
+            space_found = false;
+        } 
+        if (ch[i] == ' ') {
+            space_found = true;
+        }
+    }
+    return seg;
+}

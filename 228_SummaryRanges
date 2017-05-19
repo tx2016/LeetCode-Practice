@@ -1,0 +1,27 @@
+// 5/18/2017
+
+Given a sorted integer array without duplicates, return the summary of its ranges.
+
+For example, given [0,1,2,4,5,7], return ["0->2","4->5","7"].
+
+public List<String> summaryRanges(int[] nums) {
+    List<String> list = new ArrayList<>();
+    if (nums.length == 0) {
+        return list;
+    }
+    
+    for (int i = 0; i < nums.length; i++) {
+        int start = nums[i];
+        // move i when next element is 1 greater than the current one
+        while (i < nums.length - 1 && nums[i+1] - nums[i] == 1) {
+            i++;
+        }
+        // this number is the individual range
+        if (nums[i] == start) {
+            list.add(start + "");
+        } else {
+            list.add(start + "->" + nums[i]);
+        }
+    }
+    return list;
+}

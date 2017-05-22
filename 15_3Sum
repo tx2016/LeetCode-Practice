@@ -70,3 +70,42 @@ public List<List<Integer>> threeSum(int[] nums) {
 	}
 	return answer;
 }
+
+// 5/22/2017
+// DFS
+// use Parse condition
+// Recurse from
+// Select condition
+// in Leetcode, ETL (exceed time limit)
+// in Lintcode, Accepted
+
+
+public List<List<Integer>> threeSum(int[] nums) {
+    Arrays.sort(nums);
+    List<List<Integer>> result = new ArrayList<>();
+    Stack<Integer> stack = new Stack<>();
+    Set<Integer> visited = new HashSet<>();
+    helper(result, stack, 0, visited, nums, 0);
+    return result;
+}
+private void helper(List<List<Integer>> result, Stack<Integer> stack, int sum, Set<Integer> visited, int[] nums, int start) {
+    if (stack.size() == 3 && sum == 0) {
+        result.add(new ArrayList<Integer>(stack));
+    }
+    if (stack.size() > 3) {
+        return;
+    }
+    for (int i = start; i < nums.length; i++) {
+        if (i != 0 && nums[i-1] == nums[i] && !visited.contains(i - 1)) {
+            continue;
+        }
+        stack.push(nums[i]);
+        // add the index of the element
+        visited.add(i);
+        sum += nums[i];
+        helper(result, stack, sum, visited, nums, i + 1);
+        stack.pop();
+        visited.remove(i);
+        sum -= nums[i];
+    }
+}

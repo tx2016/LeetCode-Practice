@@ -36,3 +36,31 @@ private void helper(List<List<Integer>> res, List<Integer> list, int[] nums, boo
         }
     }
 }
+
+// 5/22/2017
+public List<List<Integer>> permuteUnique(int[] nums) {
+    List<List<Integer>> result = new ArrayList<>();
+    Set<Integer> visited = new HashSet<>();
+    Arrays.sort(nums);
+    helper(result, new Stack<Integer>(), visited, nums);
+    return result;
+}
+private void helper(List<List<Integer>> result, Stack<Integer> stack, Set<Integer> visited, int[] nums) {
+    if (stack.size() == nums.length) {
+        result.add(new ArrayList<Integer>(stack));
+    }
+    for (int i = 0; i < nums.length; i++) {
+        // if not using visited.contains(i), will have stackoverflow error
+        // because the for loop will always initialize i as 0
+        // in permuatation problem, i will always starts from 0
+        // so using only i != 0 is not enough in the parse condition
+        if (visited.contains(i) || i != 0 && nums[i-1] == nums[i] && !visited.contains(i - 1)) {
+            continue;
+        }
+        stack.push(nums[i]);
+        visited.add(i);
+        helper(result, stack, visited, nums);
+        stack.pop();
+        visited.remove(i);
+    }
+}

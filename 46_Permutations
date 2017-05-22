@@ -37,3 +37,29 @@ private void helper(List<List<Integer>> res, List<Integer> list, int[] nums) {
         }
     }
 }
+
+// 5/22/2017
+public List<List<Integer>> permute(int[] nums) {
+    List<List<Integer>> result = new ArrayList<>();
+    Set<Integer> visited = new HashSet<>();
+    helper(result, new Stack<Integer>(), visited, nums);
+    return result;
+}
+private void helper(List<List<Integer>> result, Stack<Integer> stack, Set<Integer> visited, int[] nums) {
+    if (stack.size() == nums.length) {
+        result.add(new ArrayList<Integer>(stack));
+    }
+    for (int i = 0; i < nums.length; i++) {
+        if (visited.contains(i)) {
+            continue;
+        }
+        stack.push(nums[i]);
+        visited.add(i);
+        helper(result, stack, visited, nums);
+        stack.pop();
+        visited.remove(i);
+    }
+}
+
+
+

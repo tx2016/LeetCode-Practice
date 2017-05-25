@@ -1,0 +1,36 @@
+// 5/24/2017
+
+Follow up for N-Queens problem.
+
+Now, instead outputting board configurations, return the total number of distinct solutions.
+
+public int totalNQueens(int n) {
+    int[] result = {0};
+    helper(result, new ArrayList<String>(), 0, new boolean[n], new boolean[2*n], new boolean[2*n], n);
+    return result[0];
+}
+private void helper(int[] result, List<String> current, int row, boolean[] col, boolean[] dig_left, boolean[] dig_right, int n) {
+    if (row == n) {
+        result[0]++;
+    }
+    for (int i = 0; i < n; i++) {
+        int dig_left_idx = i - row + n;
+        int dig_right_idx = i + row;
+        
+        if (col[i] || dig_left[dig_left_idx] || dig_right[dig_right_idx]) {
+            continue;
+        }
+        char[] ch = new char[n];
+        Arrays.fill(ch, '.');
+        ch[i] = 'Q';
+        current.add(String.valueOf(ch));
+        col[i] = true;
+        dig_left[dig_left_idx] = true;
+        dig_right[dig_right_idx] = true;
+        helper(result, current, row + 1, col, dig_left, dig_right, n);
+        current.remove(current.size() - 1);
+        col[i] = false;
+        dig_left[dig_left_idx] = false;
+        dig_right[dig_right_idx] = false;
+    }
+}

@@ -1,0 +1,66 @@
+// 5/24/2017
+
+The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
+
+
+Given an integer n, return all distinct solutions to the n-queens puzzle.
+
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space respectively.
+
+For example,
+There exist two distinct solutions to the 4-queens puzzle:
+
+[
+ [".Q..",  // Solution 1
+  "...Q",
+  "Q...",
+  "..Q."],
+
+ ["..Q.",  // Solution 2
+  "Q...",
+  "...Q",
+  ".Q.."]
+]
+
+// queens can attack other queen in the same row, same column and the diagonal
+/* when the diagonal line from upper left to bottom right (0,0), (1,1), (2,2),(3,3)
+                                                          (0,1), (1,2), (2,3),(3,4)
+(col - row) is the same; when saving to array, use (col - row + n) to cover the case where
+col - row < 0, e.g. 0 - 3 < 0
+
+when the diagonal line from bottom left to upper right (0,4), (1,3), (2,2),(3,1), (4,0)
+                                                       (0,1), (1,0)
+                                                       (0,2), (1,1), (2,0)
+(col + row) is the same
+*/
+
+public List<List<String>> solveNQueens(int n) {
+    List<List<String>> result = new ArrayList<>();
+    helper(result, new ArrayList<String>(), 0, new boolean[n], new boolean[2*n], new boolean[2*n], n);
+    return result;
+}
+private void helper(List<List<String>> result, List<String> current, int row, boolean[] col, boolean[] dig_left, boolean[] dig_right, int n) {
+    if (row == n) {
+        result.add(new ArrayList<String>(current));
+    }
+    for (int i = 0; i < n; i++) {
+        int dig_left_idx = i - row + n;
+        int dig_right_idx = i + row;
+        
+        if (col[i] || dig_left[dig_left_idx] || dig_right[dig_right_idx]) {
+            continue;
+        }
+        char[] ch = new char[n];
+        Arrays.fill(ch, '.');
+        ch[i] = 'Q';
+        current.add(String.valueOf(ch));
+        col[i] = true;
+        dig_left[dig_left_idx] = true;
+        dig_right[dig_right_idx] = true;
+        helper(result, current, row + 1, col, dig_left, dig_right, n);
+        current.remove(current.size() - 1);
+        col[i] = false;
+        dig_left[dig_left_idx] = false;
+        dig_right[dig_right_idx] = false;
+    }
+}

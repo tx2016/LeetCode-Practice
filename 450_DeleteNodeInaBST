@@ -55,7 +55,7 @@ public TreeNode deleteNode(TreeNode root, int key) {
 			return root.right;
 		if (root.right == null)
 			return root.left;
-			
+
 		TreeNode minNode = findMin(root.right);
 		root.val = minNode.val;
 		root.right = deleteNode(root.right, root.val);
@@ -70,10 +70,3 @@ private int findMin(TreeNode node) {
 	}
 	return node;
 }
-
-
-
-
-
-
-

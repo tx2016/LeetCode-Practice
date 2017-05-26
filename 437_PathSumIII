@@ -33,8 +33,8 @@ public int pathSum(TreeNode root, int sum) {
     	return 0;
     }
     int rootNumPath = helper(root, sum, 0);
-    int leftNumPath = helper(root.left, sum, 0);
-    int rightNumPath = helper(root.right, sum, 0);
+    int leftNumPath = pathSum(root.left, sum);
+    int rightNumPath = pathSum(root.right, sum);
     return (rootNumPath + leftNumPath + rightNumPath);
 }
 
@@ -50,13 +50,8 @@ private int helper(TreeNode root, int sum, int curSum) {
 		numPath++;
 	}
 
-	numPath += helper(root.left, sum, 0);
-	numPath += helper(root.right, sum, 0);
+	numPath += helper(root.left, sum, curSum);
+	numPath += helper(root.right, sum, curSum);
 	
 	return numPath;
 }
-
-
-
-
-

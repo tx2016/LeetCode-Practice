@@ -42,7 +42,7 @@ public List<Integer> postorderTraversal(TreeNode root) {
     s.push(root);
     while (!s.isEmpty()) {
     	TreeNode cur = s.pop();
-    	list.add(cur.val);
+    	list.addFirst(cur.val);
     	if (cur.left != null) {
     		s.push(cur.left);
     	}

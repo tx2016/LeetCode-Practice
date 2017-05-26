@@ -32,7 +32,7 @@ public ListNode reverseBetween(ListNode head, int m, int n) {
     	ListNode next = cur.next;
     	cur.next = next.next; // cur will move to the right
     	next.next = front_m.next; // point "next" pointer to the element at (m - 1) index, after "front_m"
-    	front_m.next = next; // point "front_m" to the element at (m - 1) index
+    	front_m.next = nextF; // point "front_m" to the element at (m - 1) index
     	move--;
 
     }

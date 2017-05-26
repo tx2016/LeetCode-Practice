@@ -16,7 +16,7 @@ nums2 = [3, 4]
 The median is (2 + 3)/2 = 2.5
 
 public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-	int m = nums1.length;
+    int m = nums1.length;
 	int n = nums2.length;
 
 
@@ -26,39 +26,41 @@ public double findMedianSortedArrays(int[] nums1, int[] nums2) {
 
 	int begin = 0;
 	int end = m;
+	int half_len = (m + n + 1)/2;
+	int i = 0;
+	int j = 0;
 	double max_left = 0.0;
 	double min_right = 0.0;
 
-	while (begin+ 1 < end) {
-		int i = begin + (end - begin)/2;
-		int j = (m + n + 1)/2 - imid;
+	while (begin <= end) {
+		i = begin + (end - begin)/2;
+		j = half_len - i;
 
-		if (i < m && nums2[j - 1] > nums1[i])
-			begin = i;
-		else if (j < n && nums1[i - 1] > nums2[j])
-			end = i;
-		else {
-			if (i == 0)
-				max_left = nums2[j - 1];
-			else if (j == 0)
-				max_left = nums1[i - 1];
-			else
-				max_left = Math.max(nums1[i - 1], nums2[j - 1]);
-
-			// if total length is odd, the maximum exists in the left part
-			if ((m + n)%2 == 1)
-				return max_left;
-
-			if (i == m)
-				min_right = nums2[j];
-			else if (j == n)
-				min_right = nums1[i];
-			else
-				min_right = Math.min(nums1[i], nums2[j]);
-
-			return ((max_left + min_right) / 2);
-
-		}
+		if (j >=1 && i < m && nums2[j - 1] > nums1[i])
+			begin = i+1;
+		else if (i>=1 && j < n && nums1[i - 1] > nums2[j])
+			end = i-1;
+	    else {
+        	
+    		if (i == 0)
+    			max_left = nums2[j - 1];
+    		else if (j == 0)
+    			max_left = nums1[i - 1];
+    		else
+    			max_left = Math.max(nums1[i - 1], nums2[j - 1]);
+    		break;
+	    }
 	}
-	return 0.0;
+	// if total length is odd, the maximum exists in the left part
+	if ((m + n) % 2 == 1)
+		return max_left;
+
+	if (i == m)
+		min_right = (double) nums2[j];
+	else if (j == n)
+		min_right = (double) nums1[i];
+	else
+		min_right = (double) Math.min(nums1[i], nums2[j]);
+
+	return ((double) (max_left + min_right) / 2);
 }

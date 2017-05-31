@@ -30,3 +30,29 @@ public int findMin(int[] nums) {
     else
     	return nums[end];
 }
+
+// 5/30/2017
+
+public int findMin(int[] nums) {
+    if (nums.length == 0 || nums == null) {
+        return -1;
+    }
+    int left = 0;
+    int right = nums.length - 1;
+    int target = nums[right];
+    while (left + 1 < right) {
+        int mid = left + (right-left)/2;
+        int val = nums[mid];
+
+        if (val >= target) {
+            left = mid;
+        } else {
+            right = mid;
+        }
+    }
+    if (nums[left] >= nums[right]) {
+        return nums[right];
+    } else {
+        return nums[left];
+    }
+}

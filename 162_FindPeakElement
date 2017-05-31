@@ -51,14 +51,43 @@ public int findPeakElement(int[] nums) {
             left = mid;
         } else if (val < nums[mid-1]) {
             right = mid;
+        } else {
+            right = mid;
         }
-        // } else {
-        //     right = mid;
-        // }
     }
     if (nums[left] > nums[right]) {
         return left;
     } else {
         return right;
     }
+}
+
+// 5/30/2017
+public int findPeakElement(int[] nums) {
+   if (nums.length == 0 || nums == null) {
+        return -1;
     }
+    int left = 0;
+    int right = nums.length - 1;
+    while (left + 1 < right) {
+        int mid = left+(right-left)/2;
+        int val = nums[mid];
+        // smaller than the element behind
+        // peak is in the right
+        if (val < nums[mid + 1]) {
+            left = mid; 
+        // smaller than the element before
+        // peak is in the left
+        } else if (val < nums[mid - 1]){
+            right = mid;
+        // val >= nums[mid+1] && val >= nums[mid-1]
+        } else {
+            right = mid;
+        }
+    }
+    if (nums[left] >= nums[right]) {
+        return left;
+    } else {
+     return right;
+    }
+}

@@ -41,3 +41,43 @@ private boolean isPalindrome(String s, int left, int right) {
     }
     return true;
 }
+
+// 6/5/2017
+public List<List<String>> partition(String s) {
+    List<List<String>> result = new ArrayList<>();
+    if (s == null || s.length() == 0) {
+        return result;
+    }
+    helper(result, new Stack<String>(), s, 0);
+    return result;
+}
+private void helper(List<List<String>> result, Stack<String> current, String s, int start) {
+    if (start == s.length()) {
+        result.add(new ArrayList<String>(current));
+    }
+    for (int i = start; i < s.length(); i++) {
+        String cur = s.substring(start, i+1);
+        // if the current substring is not palindrome, check the string
+        // staring in next position
+        if (!isPalindrome(cur)) {
+            continue;
+        }
+        current.push(cur);
+        helper(result, current, s, i+1);
+        current.pop();
+    }
+}
+private boolean isPalindrome(String s) {
+    int left = 0;
+    int right = s.length() - 1;
+    while (left < right) {
+        if (s.charAt(left) != s.charAt(right)) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+    return true;
+}
+
+
